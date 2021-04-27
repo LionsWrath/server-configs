@@ -1,0 +1,36 @@
+---
+version: "2.1"
+services:
+  swag:
+    image: ghcr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - URL=chst.dev
+      - SUBDOMAINS=griffin,
+      - VALIDATION=http
+      - DNSPLUGIN=google 
+      - ONLY_SUBDOMAINS=true
+      - STAGING=false
+    volumes:
+      - /home/alphawrath/Documents/configs/swag-data:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
+  authelia:
+    image: authelia/authelia:4.21.0
+    container_name: authelia
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - /home/alphawrath/Documents/configs/authelia-data:/config
+    restart: unless-stopped
+networks:
+  default:
+    external:
+      name: lsio

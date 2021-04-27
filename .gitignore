@@ -1,6 +1,8 @@
 *
 
 # Menos:
+!configs/
+!docker/
 !configs/**
 !docker/**
 

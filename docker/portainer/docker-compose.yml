@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  portainer:
+    image: portainer/portainer-ce
+    command: -H unix:///var/run/docker.sock
+    networks:
+      - lsio
+    restart: always
+    environment:
+      - VIRTUAL_HOST=griffin.chst.dev/portainer/
+      - VIRTUAL_PORT=9000
+    #ports:
+      #- 8000:8000 Only for remote endpoints
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+volumes:
+  portainer_data:
+networks:
+  lsio:
+    external: true
